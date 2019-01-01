@@ -1,0 +1,91 @@
+<html>
+
+	<head>
+<!--		<script type="text/javascript" src="libraries/d3.min.js"></script> -->
+<!--		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"></script>-->
+        
+        <!-- include path to d3.js library -->
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+		
+        <!-- include path to leaflet.js library and external stylesheet -->
+		<script type="text/javascript" src="libraries/leaflet.js"></script>
+		<link rel="stylesheet" href="libraries/leaflet.css"/>
+		
+        <!-- include custom stylesheet for this application-->
+        <link rel="stylesheet" href="mapStyles.css"/>
+        
+        <!-- include custom futuristic google font -->
+        <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+        
+        <!-- bring in jQuery -->
+		<script   src="https://code.jquery.com/jquery-3.3.1.js"   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="   crossorigin="anonymous"></script>
+        
+        <title>D3 UFO sighting map</title>
+        
+        
+        <script>
+        
+        function getInfo(){
+            console.log("CLICKED BUTTON");
+            $.get("/users/ufos/", function(data, status){
+            console.log(data);
+            
+            var printText = "words, ";
+                
+            for (let i = 0; i < data.length; i++){
+                console.log(data[i].city);
+                console.log(typeof data[i].city);
+                let addThis = data[i].city;
+                printText.concat(addThis);
+                console.log(printText);
+            }    
+            console.log(printText);
+                
+            $("#textBox").text(printText);
+            
+            });
+        };
+        
+        </script>
+	</head>
+
+    
+	<body>
+        <!-- TITLE -->
+		<h2 id="title">UFO Sighting Map</h2>
+        <div id="content">
+            
+            <!-- CONTROLS -->
+            <div id="controls">
+                <div class="buttons" onclick="changeYear('minus')">-</div>
+                <p class="buttons" id="year"></p>
+                <div class="buttons" onclick="changeYear('plus')">+</div>
+            </div>
+            
+            <!-- INFORMATION -->
+            <p class="sightings" id="sightings"></p>
+
+            <!-- BAR CHART -->
+            <div  id="bar-chart">
+                <svg></svg>
+            </div>
+            
+            <div id="buffer"></div>
+            
+            <!-- MAP -->
+            <div id="map">				
+            </div>
+            
+            
+            <!-- button and text box for data -->
+            <button onclick="getInfo()">Click Me!</button>
+            <div id="textBox"></div>
+            
+		</div>
+
+        <!-- include path to custom script  -->
+        <script src="mapsScript.js"></script>
+        
+	</body>
+
+</html>
