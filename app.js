@@ -7,12 +7,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var jsonQuery = require('json-query');
+var bodyParser = require("body-parser");
 
 //require modules from routes files
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+//get body-parser working
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 
 // view engine setup - i.e. specify template library
 app.set('views', path.join(__dirname, 'views'));
